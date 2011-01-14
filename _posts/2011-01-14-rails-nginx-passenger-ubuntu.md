@@ -1,4 +1,9 @@
-My Rails, Nginx, REE, Passenger, Ubuntu stack
+---
+layout: post
+title: My Rails, Nginx, REE, Passenger, Ubuntu stack
+---
+
+{{ page.title }}
 ============================
 
 My notes on setting up a simple production server with Ubuntu 10.04 LTS, NGINX, Passenger, Ruby Enterprise Edition 1.8.7 and Mysql for Rails 2.3.8/3.0
