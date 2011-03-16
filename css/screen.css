@@ -107,7 +107,8 @@ ul.posts {
     margin-left: 1em;
   }
 
-  .site .title a.extra:hover {
+  .site .title a.extra:hover,
+  .site .title a.extra.active {
     color: black;
   }
 
