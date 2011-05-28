@@ -7,7 +7,7 @@ For those who don't know, Chef is:
 But what is Babushka?
 ---------------------
 
-Babushka is a test-driven system administration tool written by Ben Hoskings, it uses an omnipotent approach to configure your servers by running deps written in a familiar Ruby DSL.
+[Babushka](http://babushka.me) is a test-driven system administration tool written by [Ben Hoskings](http://github.com/benhoskings), it uses an omnipotent approach to configure your servers by running deps written in a familiar Ruby DSL.
 
 Why would you do this?
 ----------------------
