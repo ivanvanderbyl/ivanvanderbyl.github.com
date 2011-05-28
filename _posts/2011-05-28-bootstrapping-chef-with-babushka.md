@@ -37,8 +37,9 @@ from source.
 So these deps take care of all of this. Here's a run list:
 
 `babushka ivanvanderbyl:'chef user'`
-- Sets a FQHN of your choosing
-- Installs core software
+
+* Sets a FQHN of your choosing
+* Installs core software
   - vim
   - curl
   - htop
