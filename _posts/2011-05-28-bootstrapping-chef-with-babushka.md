@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bootstrapping Chef with Babushka with one command
+title: Bootstrapping Chef in one command with Babushka
 ---
 
 {{ page.title }}
