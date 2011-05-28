@@ -48,6 +48,7 @@ Bootstrap babushka using babushka:
 
     bash -c "`wget -O - babushka.me/up`"
 
+Out:
 
     .       .           .   .      
     |-. ,-. |-. . . ,-. |-. | , ,-.
@@ -55,7 +56,7 @@ Bootstrap babushka using babushka:
     ^-' `-^ ^-' `-^ `-' ' ' ' ` `-^
 
     Hi there :)
-
+    …
 
 Follow the default prompts and you should be good to go.
 
