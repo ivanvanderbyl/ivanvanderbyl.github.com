@@ -1,4 +1,9 @@
-Bootstrapping Chef with Babushka with one command
+---
+layout: post
+title: Bootstrapping Chef with Babushka with one command
+---
+
+{{ page.title }}
 =================================================
 
 For those who don't know, Chef is:
