@@ -40,7 +40,7 @@ Once you have created an instance, login as root using the console and ensure yo
 
 Now open a Terminal window and connect to this instance over SSH as root.
 
-Install wget if not already installed:
+Install `wget` if not already installed:
 
     apt-get install wget
     
@@ -118,10 +118,10 @@ After this you should logout and login as your non-privileged user (`deploy` by 
 * Creates a chef bootstrap configuration
 * Bootstraps Chef Server using Chef Solo
 
-After this you will have a complete chef setup as per the [Rubygems Chef Bootstrap guide](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation)
-
 Next Steps
 ----------
+
+You could complete the chef setup as per the [Rubygems Chef Bootstrap guide](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation) or enlist the pro-skills of Babushka again, in which case; read on.
 
 *From the Chef Wiki:*
 When working with chef, you will spend a lot of time editing recipes and other files, and you'll find it much more convenient to edit them on your laptop/desktop, where you have your editor configured just to your liking. 
@@ -132,15 +132,54 @@ I've also created a dep for this, simply run (on the server):
     babushka ivanvanderbyl:'external admin client.registered'
 
 This will register a new client for you to use locally, which means you need to copy this new client private key to your laptop/desktop. 
-The command for this is something similar to (on your laptop/desktop):
+The command for this is: (on your laptop/desktop)
 
     mkdir ~/.chef
-    scp chef.example.com:/tmp/my-username.pem ~/.chef/my-username.pem
+    scp deploy@chef.example.com:/tmp/my-username.pem ~/.chef/my-username.pem
     
-Replacing `chef.example.com` with the FQGHN of your chef server, and replacing `my-username` with the username you entered when running `external admin client.registered`
+Replacing `chef.example.com` with the FQHN of your chef server, and replacing `my-username` with the username you entered when running `external admin client.registered`
+
+*Note:* If you haven't installed the chef gem locally please do so now `gem install chef`
+
+Configure knife locally:
+
+    your-laptop > knife configure
+    No knife configuration file found
+    
+Knife looks for its configuration in ~/.chef/knife.rb by default:
+
+    Where should I put the config file? [~/.chef/knife.rb] 
+    Please enter the chef server URL: [http://localhost:4000] http://chef.example.com:4000
+
+Now, enter your client name, exactly as you did when running knife client create above:
+
+    Please enter an existing username or clientname for the API: [my-username] my-username
+
+For these next settings, you can accept the defaults for now and update them later by editing your knife.rb file. The validation client name and key are used with knife's cloud computing commands:
+
+    Please enter the validation clientname: [chef-validator] 
+    Please enter the location of the validation key: [/etc/chef/validation.pem]
+
+Verify your local installation
+------------------------------
+
+    your-laptop > knife client list
+    [
+      "chef-webui",
+      "my-username",
+      "bob",
+      "chef-validator"
+    ]
+
 
 Bootstrapping a new server client
 =================================
+
+You will need to bootstrap each new server you add to your cluster, luckily this has also been rolled into a Babushka dep:
+
+    babushka ivanvanderbyl:'bootstrap chef client'
+
+Alternatively you can do all these steps manually using the [Chef Wiki guide on Bootstrapping a new client with Rubygems](http://wiki.opscode.com/display/chef/Walk-through+-+Bringing+up+a+new+chef+client+%28using+rubygems%29)
 
 
 Contributing
