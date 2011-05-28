@@ -54,12 +54,80 @@ Next we run my `'chef user'` dep:
 
     babushka ivanvanderbyl:'chef user'
     
-Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called \[GITHUB USERNAME\]/babushka-deps.git and clones it, then loads it into its internal list.
+Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called `\[GITHUB USERNAME\]/babushka-deps.git` and clones it, then loads it into its internal list.
 [My babushka-deps repo](http://github.com/ivanvanderbyl/babushka-deps) contains the dep `chef user`
 
 This will run the list documented below, and towards the end create a new user account. Make sure you don't call the user `chef` because it will cause things to fail in the next step. I usually use `deploy`
 
-Now logout from root, and reconnect as the chef user you just created to complete the next part.
+Now logout from root, and reconnect as the chef user you just created to complete the next step: actually installing chef-server.
+
+Actually install Chef
+---------------------
+
+This is where the action happens, run this dep and you will have a complete Chef Server installation, optionally with `chef-server-webui`
+
+    babushka ivanvanderbyl:'bootstrapped chef'
+    
+You should see the output like this if it worked:
+
+    Updating git://github.com/ivanvanderbyl/babushka-deps.git... Already up-to-date at be78742, done.
+    ivanvanderbyl:bootstrapped chef {
+      ivanvanderbyl:bootstrap chef server with rubygems {
+        ivanvanderbyl:hostname {
+          hostname [chef.easylodge.com.au]? 
+        } ✓ ivanvanderbyl:hostname
+        ruby {
+          'ruby' & 'irb' run from /usr/bin.
+          ✓ ruby is 1.8.7, which is >= 1.8.6.
+        } ✓ ruby
+        ivanvanderbyl:chef install dependencies.managed {
+          apt {
+            main.apt_source {
+            } ✓ main.apt_source
+            universe.apt_source {
+            } ✓ universe.apt_source
+            'apt-get' runs from /usr/bin.
+          } ✓ apt
+          ✓ system has irb deb
+          ✓ system has build-essential deb
+          ✓ system has wget deb
+          ✓ system has ssl-cert deb
+          'wget', 'make', 'irb' & 'gcc' run from /usr/bin.
+        } ✓ ivanvanderbyl:chef install dependencies.managed
+        rubygems {
+          ✓ ruby (cached)
+          'gem' & 'ruby' run from /usr/bin.
+          ✓ gem is 1.7.2, which is >= 1.7.2.
+        } ✓ rubygems
+        ivanvanderbyl:rubygems with no docs {
+        } ✓ ivanvanderbyl:rubygems with no docs
+        ivanvanderbyl:chef.gem {
+          chef version [0.10.0]? 
+          ✓ rubygems (cached)
+          ✓ system has chef-0.10.0 gem
+          'chef-client' runs from /usr/bin.
+        } ✓ ivanvanderbyl:chef.gem
+        ivanvanderbyl:ohai.gem {
+          ✓ rubygems (cached)
+          ✓ system has ohai-0.6.4 gem
+          'ohai' runs from /usr/bin.
+        } ✓ ivanvanderbyl:ohai.gem
+        ivanvanderbyl:chef solo configuration {
+        } ✓ ivanvanderbyl:chef solo configuration
+        ivanvanderbyl:chef bootstrap configuration {
+        } ✓ ivanvanderbyl:chef bootstrap configuration
+        ivanvanderbyl:bootstrapped chef installed {
+          The commands for 'bootstrapped chef installed' run from more than one place.
+          'chef-client' runs from /usr/bin, but 'chef-server' & 'chef-solr' run from /usr/sbin.
+          I don't know how to fix that, so it's up to you. :)
+        } ✗ ivanvanderbyl:bootstrapped chef installed
+      } ✗ ivanvanderbyl:bootstrap chef server with rubygems
+    } ✗ ivanvanderbyl:bootstrapped chef
+    You can view a more detailed log at '/home/deploy/.babushka/logs/ivanvanderbyl:bootstrapped chef'.
+
+This will verify that all services have started correctly and if so report a success, otherwise it will output a log file so you can trace what happened and hopefully fix the problem.
+
+
 
 What does it do?
 ----------------
