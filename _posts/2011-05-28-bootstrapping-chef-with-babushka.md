@@ -30,9 +30,9 @@ to use a dedicated instance for this setup.
 Getting started
 ===============
 
-So lets get into it, you will need the following if following on at home:
+So lets get into it, you'll need the following if following on at home:
 
-1. 1024MB+ Ubuntu instance. We're using a [OrionVM Cloud](http://orionvm.com.au) instance
+1. 1024MB+ Ubuntu instance. We're using an [OrionVM Cloud](http://orionvm.com.au) instance
 2. Your ssh public key
 3. About 10 minutes spare time.
 
@@ -54,7 +54,7 @@ Next we run my `'chef user'` dep:
 
     babushka ivanvanderbyl:'chef user'
     
-Notice how we don't even have to tell Babushka where to get it from? By default Babushka looks for a Github repository called <username>/babushka-deps.git and clones it, then loads it into its internal list.
+Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called \[GITHUB USERNAME\]/babushka-deps.git and clones it, then loads it into its internal list.
 [My babushka-deps repo](http://github.com/ivanvanderbyl/babushka-deps) contains the dep `chef user`
 
 This will run the list documented below, and towards the end create a new user account. Make sure you don't call the user `chef` because it will cause things to fail in the next step. I usually use `deploy`
