@@ -175,11 +175,23 @@ Verify your local installation
 Bootstrapping a new server client
 =================================
 
-You will need to bootstrap each new server you add to your cluster, luckily this has also been rolled into a Babushka dep:
+You will need to bootstrap each new server you add to your cluster, this is similar to the process above however it does not depend on running as root, however if you are starting with the same image
+it is recommended that you run the `chef user` dep first and login as that user before bootstrapping as a client. This is a more secure approach.
+
+To bootstrap this server as a client, simply run:
 
     babushka ivanvanderbyl:'bootstrap chef client'
 
 Alternatively you can do all these steps manually using the [Chef Wiki guide on Bootstrapping a new client with Rubygems](http://wiki.opscode.com/display/chef/Walk-through+-+Bringing+up+a+new+chef+client+%28using+rubygems%29)
+
+Connect to server
+-----------------
+Now we need to set up the client so it is authenticated to talk to the server. This is done by creating a certificate pair.
+
+To do this, you will need to copy the file `/etc/chef/validation.pem` from the chef server to your chef client into the same path. This might seem a little tricky given that we have disabled password login, so I would recommend a simple 
+⌘C +  ⌘V approach.
+
+Then, simply run `sudo chef-client` and it will register itself with your chef server. After it is done, **be sure to delete the file /etc/chef/validation.pem on your client!** (It is the key to the universe)
 
 
 Contributing
