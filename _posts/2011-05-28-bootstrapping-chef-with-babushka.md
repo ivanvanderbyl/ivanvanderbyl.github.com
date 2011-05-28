@@ -32,7 +32,7 @@ Getting started
 
 So lets get into it, you'll need the following if following on at home:
 
-1. 1024MB+ Ubuntu instance. We're using an [OrionVM Cloud](http://orionvm.com.au) instance, but most Amazon EC2 and Rackspace Ubuntu images will work fine after enabling `root` (Don't worry we will disable it again later)
+1. 1024MB+ Ubuntu instance. We're using an [OrionVM Cloud](http://orionvm.com.au) instance running 10.04 Lucid Lynx, but most Amazon EC2 and Rackspace Ubuntu images will work fine after enabling `root` (Don't worry we will disable it again later)
 2. Your ssh public key
 3. About 10 minutes spare time.
 
@@ -47,19 +47,28 @@ Install wget if not already installed:
 Bootstrap babushka using babushka:
 
     bash -c "`wget -O - babushka.me/up`"
-    
+
+
+    .       .           .   .      
+    |-. ,-. |-. . . ,-. |-. | , ,-.
+    | | ,-| | | | | `-. | | |<  ,-|
+    ^-' `-^ ^-' `-^ `-' ' ' ' ` `-^
+
+    Hi there :)
+
+
 Follow the default prompts and you should be good to go.
 
 Next we run my `'chef user'` dep:
 
     babushka ivanvanderbyl:'chef user'
     
-Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called `\[GITHUB USERNAME\]/babushka-deps.git` and clones it, then loads it into its internal list.
+Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called `<GITHUB USERNAME>/babushka-deps.git` and clones it, then loads it into its internal list.
 [My babushka-deps repo](http://github.com/ivanvanderbyl/babushka-deps) contains the dep `chef user`
 
 This will run the list documented below, and towards the end create a new user account. Make sure you don't call the user `chef` because it will cause things to fail in the next step. I usually use `deploy`
 
-Now logout from root, and reconnect as the chef user you just created to complete the next step: actually installing chef-server.
+Now logout from root and reconnect as the chef user you just created to complete the next step: actually installing chef-server.
 
 Actually install Chef
 ---------------------
