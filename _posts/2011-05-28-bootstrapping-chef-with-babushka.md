@@ -32,7 +32,7 @@ Getting started
 
 So lets get into it, you'll need the following if following on at home:
 
-1. 1024MB+ Ubuntu instance. We're using an [OrionVM Cloud](http://orionvm.com.au) instance
+1. 1024MB+ Ubuntu instance. We're using an [OrionVM Cloud](http://orionvm.com.au) instance, but most Amazon EC2 and Rackspace Ubuntu images will work fine after enabling `root` (Don't worry we will disable it again later)
 2. Your ssh public key
 3. About 10 minutes spare time.
 
