@@ -6,8 +6,8 @@ title: Bootstrapping Chef in one command with Babushka
 {{ page.title }}
 =================================================
 
-For those who don't know, Chef is:
-  "A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure"
+For those who don't know; Chef is:
+  *"A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure"*
   
 But what is Babushka?
 ---------------------
