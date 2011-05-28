@@ -27,6 +27,34 @@ To solve this problem I wrote a collection of Babushka deps to do this job for u
 It assumes you have a bare Ubuntu instance (Tested on 10.04) running somewhere with root access over ssh. While there is no real requirement for it to be bare, these deps will customise things considerably so it is advisable
 to use a dedicated instance for this setup.
 
+Getting started
+===============
+
+So lets get into it, you will need the following if following on at home:
+
+1. 1024MB+ Ubuntu instance. We're using a [OrionVM Cloud](http://orionvm.com.au) instance
+2. About 10 minutes spare time.
+
+Once you have created an instance, login as root using the console and ensure you have a password set, if not run: `passwd`
+
+Now open a Terminal window and connect to this instance over SSH as root.
+
+Install wget if not already installed:
+
+    apt-get install wget
+    
+Bootstrap babushka using babushka:
+
+    bash -c "`wget -O - babushka.me/up`"
+    
+Follow the default prompts and you should be good to go.
+
+Next we run the 'chef user' dep:
+
+    babushka ivanvanderbyl:'chef user'
+    
+    
+
 What does it do?
 ----------------
 
@@ -60,7 +88,7 @@ After this you should logout and login as your non-privileged user (`deploy` by 
 
 * Ensures we have a FQHN
 * Installs Ruby 1.8.7
-* Installs chef install dependencies
+* Installs chef dependencies
   - irb
   - build-essential
   - wget
