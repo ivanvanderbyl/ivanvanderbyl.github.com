@@ -46,22 +46,14 @@ Install wget if not already installed:
     
 Bootstrap babushka using babushka:
 
-    $ bash -c "`wget -O - babushka.me/up`"
-    
-    .       .           .   .      
-    |-. ,-. |-. . . ,-. |-. | , ,-.
-    | | ,-| | | | | `-. | | |<  ,-|
-    ^-' `-^ ^-' `-^ `-' ' ' ' ` `-^
-
-    Hi there :)
-    …
+    bash -c "`wget -O - babushka.me/up`"
 
 Follow the default prompts and you should be good to go.
 
 Next we run my `'chef user'` dep:
 
     babushka ivanvanderbyl:'chef user'
-    
+  
 Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called `<GITHUB USERNAME>/babushka-deps.git` and clones it, then loads it into its internal list.
 [My babushka-deps repo](http://github.com/ivanvanderbyl/babushka-deps) contains the dep `chef user`
 
@@ -69,79 +61,22 @@ This will run the list documented below, and towards the end create a new user a
 
 Now logout from root and reconnect as the chef user you just created to complete the next step: actually installing chef-server.
 
-Actually install Chef
+Install Chef
 ---------------------
 
-This is where the action happens, run this dep and you will have a complete Chef Server installation, optionally with `chef-server-webui`
+This is where the magic happens, run this dep and you will have a complete Chef Server installation, optionally with `chef-server-webui`
 
     babushka ivanvanderbyl:'bootstrapped chef'
-    
-You should see the output like this if it worked:
 
-    Updating git://github.com/ivanvanderbyl/babushka-deps.git... Already up-to-date at be78742, done.
-    ivanvanderbyl:bootstrapped chef {
-      ivanvanderbyl:bootstrap chef server with rubygems {
-        ivanvanderbyl:hostname {
-          hostname [chef.easylodge.com.au]? 
-        } ✓ ivanvanderbyl:hostname
-        ruby {
-          'ruby' & 'irb' run from /usr/bin.
-          ✓ ruby is 1.8.7, which is >= 1.8.6.
-        } ✓ ruby
-        ivanvanderbyl:chef install dependencies.managed {
-          apt {
-            main.apt_source {
-            } ✓ main.apt_source
-            universe.apt_source {
-            } ✓ universe.apt_source
-            'apt-get' runs from /usr/bin.
-          } ✓ apt
-          ✓ system has irb deb
-          ✓ system has build-essential deb
-          ✓ system has wget deb
-          ✓ system has ssl-cert deb
-          'wget', 'make', 'irb' & 'gcc' run from /usr/bin.
-        } ✓ ivanvanderbyl:chef install dependencies.managed
-        rubygems {
-          ✓ ruby (cached)
-          'gem' & 'ruby' run from /usr/bin.
-          ✓ gem is 1.7.2, which is >= 1.7.2.
-        } ✓ rubygems
-        ivanvanderbyl:rubygems with no docs {
-        } ✓ ivanvanderbyl:rubygems with no docs
-        ivanvanderbyl:chef.gem {
-          chef version [0.10.0]? 
-          ✓ rubygems (cached)
-          ✓ system has chef-0.10.0 gem
-          'chef-client' runs from /usr/bin.
-        } ✓ ivanvanderbyl:chef.gem
-        ivanvanderbyl:ohai.gem {
-          ✓ rubygems (cached)
-          ✓ system has ohai-0.6.4 gem
-          'ohai' runs from /usr/bin.
-        } ✓ ivanvanderbyl:ohai.gem
-        ivanvanderbyl:chef solo configuration {
-        } ✓ ivanvanderbyl:chef solo configuration
-        ivanvanderbyl:chef bootstrap configuration {
-        } ✓ ivanvanderbyl:chef bootstrap configuration
-        ivanvanderbyl:bootstrapped chef installed {
-          The commands for 'bootstrapped chef installed' run from more than one place.
-          'chef-client' runs from /usr/bin, but 'chef-server' & 'chef-solr' run from /usr/sbin.
-          I don't know how to fix that, so it's up to you. :)
-        } ✗ ivanvanderbyl:bootstrapped chef installed
-      } ✗ ivanvanderbyl:bootstrap chef server with rubygems
-    } ✗ ivanvanderbyl:bootstrapped chef
-    You can view a more detailed log at '/home/deploy/.babushka/logs/ivanvanderbyl:bootstrapped chef'.
+This will verify that all services have started correctly and if so report success, otherwise it will output a log file so you can trace what happened and hopefully fix the problem. (Please report bugs with this process below)
 
-This will verify that all services have started correctly and if so report a success, otherwise it will output a log file so you can trace what happened and hopefully fix the problem.
+If all components are installed correctly it will register this `node` with `chef-server` by running `knife configure -i`
 
-
-
-What does it do?
-----------------
+What did it really do?
+----------------------
 
 You might think installing chef-server is a simple bootstrap command documented on the [Chef Wiki](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation). 
-This is partly true, until you spend considerable time setting hostnames, creating users, uploading public keys, disabling root, installing default software and extensions, and not to mention installing Ruby and Rubygems 
+This is partially true, until you spend considerable time setting hostnames, creating users, uploading public keys, disabling root, installing default software and extensions, and not to mention installing Ruby and Rubygems 
 from source.
 
 So these deps take care of all of this. Here's a run list:
@@ -184,3 +119,39 @@ After this you should logout and login as your non-privileged user (`deploy` by 
 * Bootstraps Chef Server using Chef Solo
 
 After this you will have a complete chef setup as per the [Rubygems Chef Bootstrap guide](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation)
+
+Next Steps
+----------
+
+*From the Chef Wiki:*
+When working with chef, you will spend a lot of time editing recipes and other files, and you'll find it much more convenient to edit them on your laptop/desktop, where you have your editor configured just to your liking. 
+To facilitate this mode of working, we recommend you create a knife client to use knife on your development machine.
+
+I've also created a dep for this, simply run (on the server):
+
+    babushka ivanvanderbyl:'external admin client.registered'
+
+This will register a new client for you to use locally, which means you need to copy this new client private key to your laptop/desktop. 
+The command for this is something similar to (on your laptop/desktop):
+
+    mkdir ~/.chef
+    scp chef.example.com:/tmp/my-username.pem ~/.chef/my-username.pem
+    
+Replacing `chef.example.com` with the FQGHN of your chef server, and replacing `my-username` with the username you entered when running `external admin client.registered`
+
+Bootstrapping a new server client
+=================================
+
+
+Contributing
+========================
+
+I encourage you to contribute to these deps to fix issues you come across or add features you want to use.
+
+* Check out the latest [master](https://github.com/ivanvanderbyl/babushka-deps) to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch e.g. git checkout -b `feature/my-awesome-idea` or `support/this-does-not-work`
+* Commit and push until you are happy with your contribution
+* Issue a pull request
+
