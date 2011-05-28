@@ -36,7 +36,7 @@ from source.
 
 So these deps take care of all of this. Here's a run list:
 
-`babushka ivanvanderbyl:'chef user'`
+`babushka ivanvanderbyl:'chef user'` - run this as `root`.
 
 * Sets a FQHN of your choosing
 * Installs core software
@@ -48,10 +48,29 @@ So these deps take care of all of this. Here's a run list:
   - nmap
   - tree
 * Creates an `admin` group and adds it to sudoers list
-* Creates a non-privileged user to install chef under and manage the system
+* Creates a non-privileged user to install chef-server under and manage the system
   - Adds passwordless sudo
   - Installs your public key in `~/.ssh/authorized_keys`
 * Disables password logins
 * Disables `root` login
 
 After this you should logout and login as your non-privileged user (`deploy` by default)
+
+`babushka ivanvanderbyl:'bootstrapped chef'` - run this as your non-privileged user (`deploy` by default)
+
+* Ensures we have a FQHN
+* Installs Ruby 1.8.7
+* Installs chef install dependencies
+  - irb
+  - build-essential
+  - wget
+  - ssl-cert
+* Compiles Rubygems 1.7.2 from source
+  - Disables gem docs (--no-ri --no-rdoc)
+* Installs `chef` gem with the version you specify
+* Installs `ohai` gem
+* Creates a chef-solo configuration
+* Creates a chef bootstrap configuration
+* Bootstraps Chef Server using Chef Solo
+
+After this you will have a complete chef setup as per the [Rubygems Chef Bootstrap guide](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation)
