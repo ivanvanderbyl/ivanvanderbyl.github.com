@@ -3,10 +3,7 @@ layout: post
 title: Bootstrapping Chef in one command with Babushka
 ---
 
-TL;DR
------
-
-**Install chef-server automatically with one command.**
+**TL;DR:** Install chef-server automatically with one command.
 
 {{ page.title }}
 =================================================
@@ -27,12 +24,26 @@ If you have trouble installing one version you have to ditch your instance and s
 
 To solve this problem I wrote a collection of Babushka deps to do this job for us, and it even allows you to specify a version on the fly. 
 
-It assumes you have a bare Ubuntu instance (Tested on 10.04) running somewhere with root access over ssh.
+It assumes you have a bare Ubuntu instance (Tested on 10.04) running somewhere with root access over ssh. While there is no real requirement for it to be bare, these deps will customise things considerably so it is advisable
+to use a dedicated instance for this setup.
 
 What does it do?
 ----------------
 
-Sure, you might think installing chef-server is a simple bootstrap command documented on the [Chef Wiki](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation). This is partly true,
-until you spend considerable time setting hostnames, creating users, installing default software you might expect which is missing from this bare install of Ubuntu, and not to mention installing Ruby and Rubygems 
+You might think installing chef-server is a simple bootstrap command documented on the [Chef Wiki](http://wiki.opscode.com/display/chef/Bootstrap+Chef+RubyGems+Installation). 
+This is partly true, until you spend considerable time setting hostnames, creating users, uploading public keys, disabling root, installing default software and extensions, and not to mention installing Ruby and Rubygems 
 from source.
 
+So these deps take care of all of this. Here's a run list:
+
+`babushka ivanvanderbyl:'chef user'`
+- Sets a FQHN of your choosing
+- Installs core software
+  - vim
+  - curl
+  - htop
+  - jnettop
+  - screen
+  - nmap
+  - tree
+  
