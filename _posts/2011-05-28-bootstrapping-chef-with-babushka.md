@@ -33,7 +33,8 @@ Getting started
 So lets get into it, you will need the following if following on at home:
 
 1. 1024MB+ Ubuntu instance. We're using a [OrionVM Cloud](http://orionvm.com.au) instance
-2. About 10 minutes spare time.
+2. Your ssh public key
+3. About 10 minutes spare time.
 
 Once you have created an instance, login as root using the console and ensure you have a password set, if not run: `passwd`
 
@@ -49,11 +50,16 @@ Bootstrap babushka using babushka:
     
 Follow the default prompts and you should be good to go.
 
-Next we run the 'chef user' dep:
+Next we run my `'chef user'` dep:
 
     babushka ivanvanderbyl:'chef user'
     
-    
+Notice how we don't even have to tell Babushka where to get it from? By default Babushka looks for a Github repository called <username>/babushka-deps.git and clones it, then loads it into its internal list.
+[My babushka-deps repo](http://github.com/ivanvanderbyl/babushka-deps) contains the dep `chef user`
+
+This will run the list documented below, and towards the end create a new user account. Make sure you don't call the user `chef` because it will cause things to fail in the next step. I usually use `deploy`
+
+Now logout from root, and reconnect as the chef user you just created to complete the next part.
 
 What does it do?
 ----------------
