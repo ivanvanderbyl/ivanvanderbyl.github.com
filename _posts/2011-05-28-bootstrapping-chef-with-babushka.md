@@ -46,10 +46,8 @@ Install wget if not already installed:
     
 Bootstrap babushka using babushka:
 
-    bash -c "`wget -O - babushka.me/up`"
-
-Out:
-
+    $ bash -c "`wget -O - babushka.me/up`"
+    
     .       .           .   .      
     |-. ,-. |-. . . ,-. |-. | , ,-.
     | | ,-| | | | | `-. | | |<  ,-|
