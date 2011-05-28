@@ -47,4 +47,11 @@ So these deps take care of all of this. Here's a run list:
   - screen
   - nmap
   - tree
-  
+* Creates an `admin` group and adds it to sudoers list
+* Creates a non-privileged user to install chef under and manage the system
+  - Adds passwordless sudo
+  - Installs your public key in `~/.ssh/authorized_keys`
+* Disables password logins
+* Disables `root` login
+
+After this you should logout and login as your non-privileged user (`deploy` by default)
