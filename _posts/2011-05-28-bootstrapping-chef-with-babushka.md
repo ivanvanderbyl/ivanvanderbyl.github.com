@@ -204,11 +204,15 @@ To do this, you will need to copy the file `/etc/chef/validation.pem` from the c
 
 Then, simply run `sudo chef-client` and it will register itself with your chef server. After it is done, **be sure to delete the file /etc/chef/validation.pem on your client!** (It is the key to the universe)
 
+Where to next?
+==============
+
+You now have a complete Chef server setup, it is now time to write some cookbooks and install software; for this I will hand you over to the [Chef Guides](http://wiki.opscode.com/display/chef/Guides) until I write something on this at a later date.
 
 Contributing
 ========================
 
-I encourage you to contribute to these deps to fix issues you come across or add features you want to use.
+I encourage you to contribute to these deps, if you find a bug, or you want to add support for another linux distro please fork [my Babushka deps repo](https://github.com/ivanvanderbyl/babushka-deps).
 
 1. Check out the latest [master](https://github.com/ivanvanderbyl/babushka-deps) to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 1. Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
