@@ -3,6 +3,8 @@ layout: post
 title: Bootstrapping Chef in one command with Babushka
 ---
 
+<p class="meta">28 May 2011 - Melbourne</p>
+
 **TL;DR:** Install chef-server automatically with one command.
 
 {{ page.title }}
