@@ -43,7 +43,7 @@ So lets get into it, you'll need to meet these minimum requirements if following
 2. Your ssh public key
 3. About 10 minutes spare time.
 
-Once you have created an instance, login as `root` and run the first command to get your server in a secure environment.
+Once you have created an instance, login as `root` and run through these steps:
 
 Install `wget` if not already installed:
 
