@@ -15,8 +15,8 @@ When it comes to sys-admin - I make a very good software developer, because quit
 So when it came to setting up and managing a cluster of servers for my startup I immediately looked at Chef, and on paper it looked like
 it would fit the bill perfectly - I can write all the components, store them on Github and it will take care of all the hard work on each server.
 
-Then I got slapped in the face by the monstrosity that is the Chef installation guide. What? No `gem install chef` and you're done? this needed to be fixed, and it has
-using Babushka.
+Then I got slapped in the face by the monstrosity that is the Chef installation guide. What? No `gem install chef` and you're done? this needed to be fixed, so I wrote
+a Babushka dependency to take care of everything.
 
 What is Babushka?
 -----------------
