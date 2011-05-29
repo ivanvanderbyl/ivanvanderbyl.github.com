@@ -10,14 +10,16 @@ title: Bootstrapping Chef in one command with Babushka
 {{ page.title }}
 =================================================
 
-When it comes to sys admin - I make a very good software developer, because quite frankly repetitive tasks are not my cup of tea. 
+When it comes to sys-admin - I make a very good software developer, because quite frankly repetitive tasks are not my cup of tea. 
 
 So when it came to setting up and managing a cluster of servers for my startup I immediately looked at Chef, and on paper it looked like
-it would fit the bill perfectly - until I looked at the installation guide which is longer than the Lord of the Rings. So it was obvious this needed to be rolled into one easy command - 
-Using the super lightweight scripted sys admin tool; [Babushka](http://babushka.me)
+it would fit the bill perfectly - I can write all the components, store them on Github and it will take care of all the hard work on each server.
+
+Then I got slapped in the face by the monstrosity that is the Chef installation guide. What? No `gem install chef` and you're done? this needed to be fixed, and it has
+using Babushka.
 
 What is Babushka?
----------------------
+-----------------
 
 [Babushka](http://babushka.me) is a test-driven system administration tool written by [Ben Hoskings](http://benhoskin.gs/), it uses an omnipotent approach to configure your servers by running dependencies - "deps" - written in a familiar Ruby DSL.
 
