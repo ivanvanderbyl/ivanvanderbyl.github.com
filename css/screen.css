@@ -177,6 +177,7 @@ ul.posts span {
   background-color: #eef;
   font-size: 85%;
   padding: 0 .2em;
+  whitespace: nowrap;
 }
 
 #post pre code {

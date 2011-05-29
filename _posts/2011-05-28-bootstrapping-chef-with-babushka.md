@@ -140,7 +140,7 @@ I've also created a dep for this, simply run (on the server):
 
     babushka ivanvanderbyl:'external admin client.registered'
 
-This will register a new client for you to use locally, which means you need to copy this new client private key to your laptop/desktop. 
+This will register a new client for you to use locally, which means you need to copy this new client's private key to your laptop/desktop. 
 The command for this is: (on your laptop/desktop)
 
     mkdir ~/.chef
