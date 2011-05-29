@@ -14,12 +14,12 @@ For those who don't know; Chef is:
 But what is Babushka?
 ---------------------
 
-[Babushka](http://babushka.me) is a test-driven system administration tool written by [Ben Hoskings](http://github.com/benhoskings), it uses an omnipotent approach to configure your servers by running deps written in a familiar Ruby DSL.
+[Babushka](http://babushka.me) is a test-driven system administration tool written by [Ben Hoskings](http://github.com/benhoskings), it uses an omnipotent approach to configure your servers by running dependencies - "deps" - written in a familiar Ruby DSL.
 
-Why would you do this?
-----------------------
+What does it do?
+----------------
 
-If you have ever had to install chef-server by hand you will know it requires some work, and has the potential to break very easily. 
+If you've ever been in charge with installing chef-server by hand you will know it requires some work, and has the potential to break very easily. 
 If you have trouble installing one version you have to ditch your instance and start from scratch, or spend considerable time reversing changes.
 
 To solve this problem I wrote a collection of Babushka deps to do this job for us, and it even allows you to specify a version on the fly. 
@@ -30,21 +30,19 @@ to use a dedicated instance for this setup.
 Getting started
 ===============
 
-So lets get into it, you'll need the following if following on at home:
+So lets get into it, you'll need to meet these minimum requirements if following on at home:
 
 1. 1024MB+ Ubuntu instance. We're using an [OrionVM Cloud](http://orionvm.com.au) instance running 10.04 Lucid Lynx, but most Amazon EC2 and Rackspace Ubuntu images will work fine after enabling `root` (Don't worry we will disable it again later)
 2. Your ssh public key
 3. About 10 minutes spare time.
 
-Once you have created an instance, login as root using the console and ensure you have a password set, if not run: `passwd`
-
-Now open a Terminal window and connect to this instance over SSH as root.
+Once you have created an instance, login as `root` and run the first command to get your server in a secure environment.
 
 Install `wget` if not already installed:
 
     apt-get install wget
     
-Bootstrap babushka using babushka:
+Bootstrap Babushka using Babushka:
 
     bash -c "`wget -O - babushka.me/up`"
 
@@ -57,20 +55,21 @@ Next we run my `'chef user'` dep:
 Notice how we don't have to tell Babushka where to get it from? By default Babushka looks for a Github repository called `<GITHUB USERNAME>/babushka-deps.git` and clones it, then loads it into its internal list.
 [My babushka-deps repo](http://github.com/ivanvanderbyl/babushka-deps) contains the dep `chef user`
 
-This will run the list documented below, and towards the end create a new user account. Make sure you don't call the user `chef` because it will cause things to fail in the next step. I usually use `deploy`
+This will run the list documented below, and towards the end create a new user account which you will use in the next step to install and manage chef from. 
+Make sure you don't call the user `chef` because it will cause things to fail in the next step. I usually use `deploy`
 
 Now logout from root and reconnect as the chef user you just created to complete the next step: actually installing chef-server.
 
 Install Chef
 ---------------------
 
-This is where the magic happens, run this dep and you will have a complete Chef Server installation, optionally with `chef-server-webui`
+This is where the magic happens, run this dep and you will have a complete Chef Server installation, optionally with *chef-server-webui*
 
     babushka ivanvanderbyl:'bootstrapped chef'
 
 This will verify that all services have started correctly and if so report success, otherwise it will output a log file so you can trace what happened and hopefully fix the problem. (Please report bugs with this process below)
 
-If all components are installed correctly it will register this `node` with `chef-server` by running `knife configure -i`
+If all components are installed correctly it will register this *node* with *chef-server* by running *knife configure -i* automatically.
 
 What did it really do?
 ----------------------
@@ -93,15 +92,15 @@ So these deps take care of all of this. Here's a run list:
   - nmap
   - tree
 * Creates an `admin` group and adds it to sudoers list
-* Creates a non-privileged user to install chef-server under and manage the system
+* Creates a user to install and manage chef-server
   - Adds passwordless sudo
   - Installs your public key in `~/.ssh/authorized_keys`
 * Disables password logins
 * Disables `root` login
 
-After this you should logout and login as your non-privileged user (`deploy` by default)
+After this you should logout from root and login as this user (`deploy` by default)
 
-`babushka ivanvanderbyl:'bootstrapped chef'` - run this as your non-privileged user (`deploy` by default)
+`babushka ivanvanderbyl:'bootstrapped chef'` - run this as the user created in the above step (`deploy` by default)
 
 * Ensures we have a FQHN
 * Installs Ruby 1.8.7
@@ -117,6 +116,9 @@ After this you should logout and login as your non-privileged user (`deploy` by 
 * Creates a chef-solo configuration
 * Creates a chef bootstrap configuration
 * Bootstraps Chef Server using Chef Solo
+* Verifies that all chef components are running
+
+
 
 Next Steps
 ----------
@@ -151,7 +153,7 @@ Knife looks for its configuration in ~/.chef/knife.rb by default:
     Where should I put the config file? [~/.chef/knife.rb] 
     Please enter the chef server URL: [http://localhost:4000] http://chef.example.com:4000
 
-Now, enter your client name, exactly as you did when running knife client create above:
+Now, enter your client name, exactly as you did when running `'external admin client.registered'` above:
 
     Please enter an existing username or clientname for the API: [my-username] my-username
 
@@ -170,6 +172,8 @@ Verify your local installation
       "bob",
       "chef-validator"
     ]
+
+
 
 
 Bootstrapping a new server client
@@ -199,10 +203,10 @@ Contributing
 
 I encourage you to contribute to these deps to fix issues you come across or add features you want to use.
 
-* Check out the latest [master](https://github.com/ivanvanderbyl/babushka-deps) to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch e.g. git checkout -b `feature/my-awesome-idea` or `support/this-does-not-work`
-* Commit and push until you are happy with your contribution
-* Issue a pull request
+1. Check out the latest [master](https://github.com/ivanvanderbyl/babushka-deps) to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+1. Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+1. Fork the project
+1. Start a feature/bugfix branch e.g. git checkout -b `feature/my-awesome-idea` or `support/this-does-not-work`
+1. Commit and push until you are happy with your contribution
+1. Issue a pull request
 
